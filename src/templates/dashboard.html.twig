@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" type="text/css" href="{{ asset('build/app.css') }}">
+        <script type="text/javascript" src="{{ asset('build/app.js') }}"></script>
+
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        {% set route = app.request.get('_route') %}
+
+        {% include 'nav.html.twig' %}
+
+        {% if app.request.hasPreviousSession %}
+            {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                    <div class="flash-{{ type }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a class="nav-link {% if route == "dashboard" %}active{% endif %}" id="v-pills-home-tab" data-toggle="pill" role="tab" aria-controls="v-pills-home" aria-selected="true" href="{{ path('dashboard') }}">Home</a>
+                        <a class="nav-link {% if route starts with "article" %}active{% endif %}" id="v-pills-profile-tab" data-toggle="pill" role="tab" aria-controls="v-pills-profile" aria-selected="false" href="{{ path('article_index') }}">Odevzdané články</a>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    {% block body %}
+
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

@@ -1,0 +1,41 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title %}Přehled odevzdaných článků{% endblock %}
+
+{% block body %}
+    <h1>Přehled odevzdaných článků</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Název</th>
+                <th>Vytvořeno</th>
+                <th>Poslední úprava</th>
+                <th>Nahráno verzí</th>
+                <th>Stav článku</th>
+                <th>Akce</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for article in articles %}
+            <tr>
+                <td>{{ article.title }}</td>
+                <td>{{ article.created ? article.created|date('j. n. Y H:i:s') : '' }}</td>
+                <td>{{ article.updated ? article.updated|date('j. n. Y H:i:s') : article.created|date('j. n. Y H:i:s') }}</td>
+                <td>{{ article.files|length }}</td>
+                <td>todo</td>
+                <td>
+                    <a href="{{ path('article_show', {'id': article.id}) }}">zobrazit</a>
+                    <a href="{{ path('article_edit', {'id': article.id}) }}">upravit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">nenalezeny žádné články</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('article_new') }}">Přidat nový článek</a>
+{% endblock %}

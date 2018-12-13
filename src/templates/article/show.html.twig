@@ -1,0 +1,43 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title %}Odevzdaný článek{% endblock %}
+
+{% block body %}
+    <h1>Odevzdaný článek</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Název</th>
+                <td>{{ article.title }}</td>
+            </tr>
+            <tr>
+                <th>Vytvořeno</th>
+                <td>{{ article.created ? article.created|date('j. n. Y H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Poslední úprava</th>
+                <td>{{ article.updated ? article.updated|date('j. n. Y H:i:s') : article.created|date('j. n. Y H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Tým</th>
+                <td>{{ article.team }}</td>
+            </tr>
+            <tr>
+                <th>Verze</th>
+                <td>
+                    <ul>
+                        {% for file in article.files %}
+                        <li><a href="/uploads/articles/{{ file.file }}">{{ file.created|date('j. n. Y') }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('article_index') }}">zpět na seznam</a>
+
+    <a href="{{ path('article_edit', {'id': article.id}) }}">upravit</a>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Přihlášení autora</h1>
+        </div>
+        <div class="col-md-12">
+            <p>Ještě nemáte účet? <a href="{{ path('fos_user_registration_register') }}">Zaregistrujte se</a>.</p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block fos_user_content %}
+    {{ include('@FOSUser/Security/login_content.html.twig') }}
+    <a href="{{ path('fos_user_resetting_request') }}">Zapomenuté heslo?</a>
+{% endblock fos_user_content %}

@@ -1,0 +1,11 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title %}Přidat článek{% endblock %}
+
+{% block body %}
+    <h1>Přidat nový článek</h1>
+
+    {{ include('article/_form.html.twig') }}
+
+    <a href="{{ path('article_index') }}">zpět na seznam</a>
+{% endblock %}

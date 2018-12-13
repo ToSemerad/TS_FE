@@ -1,0 +1,10 @@
+fos_user:
+  db_driver: orm
+  firewall_name: backend
+  user_class: App\Entity\User
+  from_email:
+    address: "logos.polytechnikos@vspj.cz"
+    sender_name: "Logos Polytechnikos"
+  registration:
+    form:
+      type: App\Form\RegistrationType

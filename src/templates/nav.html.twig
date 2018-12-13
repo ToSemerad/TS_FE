@@ -1,0 +1,38 @@
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+    <a class="navbar-brand" href="#">
+        <img src="{{ asset('build/images/logo.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
+        Logos Polytechnikos
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item {% if route starts with "homepage" %}active{% endif %}">
+                <a class="nav-link" href="{{ path('homepage') }}">O časopisu <span class="sr-only">(current)</span></a>
+            </li>
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <li class="nav-item {% if route starts with "article" or route == "dashboard" %}active{% endif %}">
+                <a class="nav-link" href="{{ path('dashboard') }}">Dashboard <span class="sr-only">(current)</span></a>
+            </li>
+            {% endif %}
+        </ul>
+
+        <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <span class="navbar-text">
+                            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+                        </span>
+            {% endif %}
+            <li class="nav-item">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <a class="nav-link" href="{{ path('fos_user_security_logout') }}">
+                        Odhlásit
+                    </a>
+                {% else %}
+                    <a class="nav-link" href="{{ path('fos_user_security_login') }}">Přihlásit</a>
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+</nav>
